@@ -1,0 +1,69 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang='en'>
+  <head>
+    <title>File: quicksearch.js [RDoc Documentation]</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+    <link href='../../../rdoc-style.css' media='screen' rel='stylesheet' type='text/css'>
+    <script type='text/javascript'>
+      //<![CDATA[
+        function popupCode(url) {
+          window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+        }
+        
+        function toggleCode(id) {
+          var code = document.getElementById(id)
+        
+          code.style.display = code.style.display != 'block' ? 'block' : 'none'
+          return true
+        }
+        
+        // Make codeblocks hidden by default
+        document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
+      //]]>
+    </script>
+  </head>
+  <body class='page'>
+    <div class='file' id='wrapper'>
+      <div class='header'>
+        <h1 class='name'>quicksearch.js</h1>
+        <div class='paths'>
+          doc/js/quicksearch.js
+        </div>
+        <div class='last-update'>
+          Last Update:
+          <span class='datetime'>2011-07-13 09:30:39 +0200</span>
+        </div>
+      </div>
+      <div id='content'>
+        <div id='text'>
+          <div id='description'>
+            <p>
+            /**
+            </p>
+            <pre>*&#x000A;* JQuery QuickSearch - Hook up a form field to hide non-matching elements.&#x000A;* $Id: quicksearch.js 53 2009-01-07 02:52:03Z deveiant $&#x000A;*&#x000A;* Author: Michael Granger &lt;mgranger@laika.com&gt;&#x000A;*&#x000A;*/</pre>
+            <p>
+            jQuery.fn.quicksearch = function( target, searchElems, options ) {
+            </p>
+            <pre>// console.debug( &quot;Quicksearch fn&quot; );&#x000A;&#x000A;var settings = {&#x000A;        delay: 250,&#x000A;        clearButton: false,&#x000A;        highlightMatches: false,&#x000A;        focusOnLoad: false,&#x000A;        noSearchResultsIndicator: null&#x000A;};&#x000A;if ( options ) $.extend( settings, options );&#x000A;&#x000A;return jQuery(this).each( function() {&#x000A;        // console.debug( &quot;Creating a new quicksearch on %o for %o&quot;, this, searchElems );&#x000A;        new jQuery.quicksearch( this, searchElems, settings );&#x000A;});</pre>
+            <p>
+            };
+            </p>
+            <p>
+            jQuery.quicksearch = function( searchBox, searchElems, settings ) {
+            </p>
+            <pre>var timeout;&#x000A;var boxdiv = $(searchBox).parents('div').eq(0);&#x000A;&#x000A;function init() {&#x000A;        setupKeyEventHandlers();&#x000A;        focusOnLoad();&#x000A;};&#x000A;&#x000A;function setupKeyEventHandlers() {&#x000A;        // console.debug( &quot;Hooking up the 'keypress' event to %o&quot;, searchBox );&#x000A;        $(searchBox).&#x000A;                unbind( 'keyup' ).&#x000A;                keyup( function(e) { return onSearchKey( e.keyCode ); });&#x000A;        $(searchBox).&#x000A;                unbind( 'keypress' ).&#x000A;                keypress( function(e) {&#x000A;                        switch( e.which ) {&#x000A;                                // Execute the search on Enter, Tab, or Newline&#x000A;                                case 9:&#x000A;                                case 13:&#x000A;                                case 10:&#x000A;                                        clearTimeout( timeout );&#x000A;                                        e.preventDefault();&#x000A;                                        doQuickSearch();&#x000A;                                        break;&#x000A;&#x000A;                                // Allow backspace&#x000A;                                case 8:&#x000A;                                        return true;&#x000A;                                        break;&#x000A;&#x000A;                                // Only allow valid search characters&#x000A;                                default:&#x000A;                                        return validQSChar( e.charCode );&#x000A;                        }&#x000A;                });&#x000A;};&#x000A;&#x000A;function focusOnLoad() {&#x000A;        if ( !settings.focusOnLoad ) return false;&#x000A;        $(searchBox).focus();&#x000A;};&#x000A;&#x000A;function onSearchKey ( code ) {&#x000A;        clearTimeout( timeout );&#x000A;        // console.debug( &quot;...scheduling search.&quot; );&#x000A;        timeout = setTimeout( doQuickSearch, settings.delay );&#x000A;};&#x000A;&#x000A;function validQSChar( code ) {&#x000A;        var c = String.fromCharCode( code );&#x000A;        return (&#x000A;                (c == ':') ||&#x000A;                (c &gt;= 'a' &amp;&amp; c &lt;= 'z') ||&#x000A;                (c &gt;= 'A' &amp;&amp; c &lt;= 'Z')&#x000A;          );&#x000A;};&#x000A;&#x000A;function doQuickSearch() {&#x000A;        var searchText = searchBox.value;&#x000A;        var pat = new RegExp( searchText, &quot;im&quot; );&#x000A;        var shownCount = 0;&#x000A;&#x000A;        if ( settings.noSearchResultsIndicator ) {&#x000A;                $('#' + settings.noSearchResultsIndicator).hide();&#x000A;        }&#x000A;&#x000A;        // All elements start out hidden&#x000A;        $(searchElems).each( function(index) {&#x000A;                var str = $(this).text();&#x000A;&#x000A;                if ( pat.test(str) ) {&#x000A;                        shownCount += 1;&#x000A;                        $(this).fadeIn();&#x000A;                } else {&#x000A;                        $(this).hide();&#x000A;                }&#x000A;        });&#x000A;&#x000A;        if ( shownCount == 0 &amp;&amp; settings.noSearchResultsIndicator ) {&#x000A;                $('#' + settings.noSearchResultsIndicator).slideDown();&#x000A;        }&#x000A;};&#x000A;&#x000A;init();</pre>
+            <p>
+            };
+            </p>
+          </div>
+          <div id='section'>
+          </div>
+        </div>
+      </div>
+      <div id='footer-push'></div>
+    </div>
+    <div id='footer'>
+      <a href="http://github.com/mislav/hanna/tree/master"><strong>Hanna</strong> RDoc template</a>
+    </div>
+  </body>
+</html>

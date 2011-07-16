@@ -1,0 +1,3 @@
+= JSONgrep
+
+{See complete executable documentation}[link:documentation:doc/index.html]

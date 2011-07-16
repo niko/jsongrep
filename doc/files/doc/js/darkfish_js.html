@@ -1,0 +1,138 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang='en'>
+  <head>
+    <title>File: darkfish.js [RDoc Documentation]</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+    <link href='../../../rdoc-style.css' media='screen' rel='stylesheet' type='text/css'>
+    <script type='text/javascript'>
+      //<![CDATA[
+        function popupCode(url) {
+          window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+        }
+        
+        function toggleCode(id) {
+          var code = document.getElementById(id)
+        
+          code.style.display = code.style.display != 'block' ? 'block' : 'none'
+          return true
+        }
+        
+        // Make codeblocks hidden by default
+        document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
+      //]]>
+    </script>
+  </head>
+  <body class='page'>
+    <div class='file' id='wrapper'>
+      <div class='header'>
+        <h1 class='name'>darkfish.js</h1>
+        <div class='paths'>
+          doc/js/darkfish.js
+        </div>
+        <div class='last-update'>
+          Last Update:
+          <span class='datetime'>2011-07-13 09:30:39 +0200</span>
+        </div>
+      </div>
+      <div id='content'>
+        <div id='text'>
+          <div id='description'>
+            <p>
+            /**
+            </p>
+            <pre>*&#x000A;* Darkfish Page Functions&#x000A;* $Id: darkfish.js 53 2009-01-07 02:52:03Z deveiant $&#x000A;*&#x000A;* Author: Michael Granger &lt;mgranger@laika.com&gt;&#x000A;*&#x000A;*/</pre>
+            <p>
+            /* Provide console simulation for firebug-less environments */ if
+            (!(&#8220;console&#8221; in window) || !(&#8220;firebug&#8221; in console))
+            {
+            </p>
+            <pre>var names = [&quot;log&quot;, &quot;debug&quot;, &quot;info&quot;, &quot;warn&quot;, &quot;error&quot;, &quot;assert&quot;, &quot;dir&quot;, &quot;dirxml&quot;,&#x000A;&quot;group&quot;, &quot;groupEnd&quot;, &quot;time&quot;, &quot;timeEnd&quot;, &quot;count&quot;, &quot;trace&quot;, &quot;profile&quot;, &quot;profileEnd&quot;];&#x000A;&#x000A;window.console = {};&#x000A;for (var i = 0; i &lt; names.length; ++i)&#x000A;    window.console[names[i]] = function() {};</pre>
+            <p>
+            };
+            </p>
+            <p>
+            /**
+            </p>
+            <pre>* Unwrap the first element that matches the given @expr@ from the targets and return them.&#x000A;*/</pre>
+            <p>
+            $.fn.unwrap = function( expr ) {
+            </p>
+            <pre>return this.each( function() {&#x000A;   $(this).parents( expr ).eq( 0 ).after( this ).remove();&#x000A;});</pre>
+            <p>
+            };
+            </p>
+            <p>
+            function showSource( e ) {
+            </p>
+            <pre>var target = e.target;&#x000A;var codeSections = $(target).&#x000A;        parents('.method-detail').&#x000A;        find('.method-source-code');&#x000A;&#x000A;$(target).&#x000A;        parents('.method-detail').&#x000A;        find('.method-source-code').&#x000A;        slideToggle();</pre>
+            <p>
+            };
+            </p>
+            <p>
+            function hookSourceViews() {
+            </p>
+            <pre>$('.method-description,.method-heading').click( showSource );</pre>
+            <p>
+            };
+            </p>
+            <p>
+            function toggleDebuggingSection() {
+            </p>
+            <pre>$('.debugging-section').slideToggle();</pre>
+            <p>
+            };
+            </p>
+            <p>
+            function hookDebuggingToggle() {
+            </p>
+            <pre>$('#debugging-toggle img').click( toggleDebuggingSection );</pre>
+            <p>
+            };
+            </p>
+            <p>
+            function hookQuickSearch() {
+            </p>
+            <pre>$('.quicksearch-field').each( function() {&#x000A;        var searchElems = $(this).parents('.section').find( 'li' );&#x000A;        var toggle = $(this).parents('.section').find('h3 .search-toggle');&#x000A;        // console.debug( &quot;Toggle is: %o&quot;, toggle );&#x000A;        var qsbox = $(this).parents('form').get( 0 );&#x000A;&#x000A;        $(this).quicksearch( this, searchElems, {&#x000A;                noSearchResultsIndicator: 'no-class-search-results',&#x000A;                focusOnLoad: false&#x000A;        });&#x000A;        $(toggle).click( function() {&#x000A;                // console.debug( &quot;Toggling qsbox: %o&quot;, qsbox );&#x000A;                $(qsbox).toggle();&#x000A;        });&#x000A;});</pre>
+            <p>
+            };
+            </p>
+            <p>
+            function highlightTarget( anchor ) {
+            </p>
+            <pre>console.debug( &quot;Highlighting target '%s'.&quot;, anchor );&#x000A;&#x000A;$(&quot;a[name=&quot; + anchor + &quot;]&quot;).each( function() {&#x000A;        if ( !$(this).parent().parent().hasClass('target-section') ) {&#x000A;                console.debug( &quot;Wrapping the target-section&quot; );&#x000A;                $('div.method-detail').unwrap( 'div.target-section' );&#x000A;                $(this).parent().wrap( '&lt;div class=&quot;target-section&quot;&gt;&lt;/div&gt;' );&#x000A;        } else {&#x000A;                console.debug( &quot;Already wrapped.&quot; );&#x000A;        }&#x000A;});</pre>
+            <p>
+            };
+            </p>
+            <p>
+            function highlightLocationTarget() {
+            </p>
+            <pre>console.debug( &quot;Location hash: %s&quot;, window.location.hash );&#x000A;if ( ! window.location.hash || window.location.hash.length == 0 ) return;&#x000A;&#x000A;var anchor = window.location.hash.substring(1);&#x000A;console.debug( &quot;Found anchor: %s; matching %s&quot;, anchor, &quot;a[name=&quot; + anchor + &quot;]&quot; );&#x000A;&#x000A;highlightTarget( anchor );</pre>
+            <p>
+            };
+            </p>
+            <p>
+            function highlightClickTarget( event ) {
+            </p>
+            <pre>console.debug( &quot;Highlighting click target for event %o&quot;, event.target );&#x000A;try {&#x000A;        var anchor = $(event.target).attr( 'href' ).substring(1);&#x000A;        console.debug( &quot;Found target anchor: %s&quot;, anchor );&#x000A;        highlightTarget( anchor );&#x000A;} catch ( err ) {&#x000A;        console.error( &quot;Exception while highlighting: %o&quot;, err );&#x000A;};</pre>
+            <p>
+            };
+            </p>
+            <p>
+            $(document).ready( function() {
+            </p>
+            <pre>hookSourceViews();&#x000A;hookDebuggingToggle();&#x000A;hookQuickSearch();&#x000A;highlightLocationTarget();&#x000A;&#x000A;$('ul.link-list a').bind( &quot;click&quot;, highlightClickTarget );</pre>
+            <p>
+            });
+            </p>
+          </div>
+          <div id='section'>
+          </div>
+        </div>
+      </div>
+      <div id='footer-push'></div>
+    </div>
+    <div id='footer'>
+      <a href="http://github.com/mislav/hanna/tree/master"><strong>Hanna</strong> RDoc template</a>
+    </div>
+  </body>
+</html>

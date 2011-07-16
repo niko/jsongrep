@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang='en'>
+  <head>
+    <title>jsongrep.rdoc</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+    <link href='../../css/style.css' media='screen' rel='stylesheet' type='text/css'>
+    <script type='text/javascript'>
+      //<![CDATA[
+        function popupCode(url) {
+          window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+        }
+        
+        function toggleCode(id) {
+          var code = document.getElementById(id)
+        
+          code.style.display = code.style.display != 'block' ? 'block' : 'none'
+          return true
+        }
+        
+        // Make codeblocks hidden by default
+        document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
+      //]]>
+    </script>
+  </head>
+  <body class='page'>
+    <div class='file' id='wrapper'>
+      <div class='header'>
+        <div class='name'>jsongrep.rdoc</div>
+        <div class='paths'>
+          qed/jsongrep.rdoc
+        </div>
+        <div class='last-update'>
+          Last Update:
+          <span class='datetime'>2011-07-13 09:49:16 +0200</span>
+        </div>
+      </div>
+      <div id='content'>
+        <div id='text'>
+          <div id='description'>
+            
+            <h1>JSONgrep</h1>
+            
+            <p>The base of JSONgrep is the four methods #grep, #condition, #print and
+            #summarize. #grep filters the whole line before even getting parsed. That’s
+            why filtering down the number of lines before parsing speeds up the
+            processing by magnitudes. For really large input files consider using
+            command line grep and piping the output into JSONgrep instead.</p>
+            
+            <p>#condition is the most powerful directive. It’s argument is evaluated in
+            the context of the parsed JSON object. The fields of the JSON object are
+            available as local methods. Under the hood the JSON object is an
+            OpenStruct. So you can define new virtual fields by just assigning them.
+            You can use those later in #print and #summarize. #conditions <b>must</b>
+            evaluate to true to have the line even further processed. In that way using
+            ‘title == “walk this way”’ as a condition has somewhat the same effect as
+            using ‘“title”:“walk this way”’ as argument for #grep. Only that #grep is
+            <b>way</b> faster and #condition is robust against variations in the format
+            of the JSON string.</p>
+            
+            <p>#print is the way to output the filtered lines, one by one. Pass the fields
+            you want to output as arguments.</p>
+            
+            <h2>Grepping</h2>
+            
+            <h2>Conditions</h2>
+            
+            <h2>Printing</h2>
+            
+            <h2>Summarizing</h2>
+            
+            <p>When processing @json = {a: 1} grepping just for a literal ‘“a”’ prints the
+            whole line.</p>
+            
+            <pre>output_of {&#x000A;  JsonGrepper.new(@json).grep('&quot;a&quot;').condition(nil).print(nil).summarize(nil)&#x000A;}.equals @json</pre>
+            
+            <p>When processing @json = {a: 1, b: 2} grepping for a literal ‘“a”’ and
+            printing field ‘b’ prints “b: 2”</p>
+            
+            <pre>output_of {&#x000A;  JsonGrepper.new(@json).grep('&quot;a&quot;').condition(nil).print('b').summarize(nil)&#x000A;}.equals 'b: 2'</pre>
+            
+            <p>When processing @json = {a: 1, b: 2} not grepping at all works, too</p>
+            
+            <pre>output_of {&#x000A;  JsonGrepper.new(@json).grep(nil).condition(nil).print('b').summarize(nil)&#x000A;}.equals 'b: 2'</pre>
+            
+            <p>When processing @json = {a: 1, b: 2} print takes multiple args</p>
+            
+            <pre>output_of {&#x000A;  JsonGrepper.new(@json).grep(nil).condition(nil).print('a','b').summarize(nil)&#x000A;}.equals &quot;a: 1  b: 2&quot;</pre>
+            
+            <p>When processing @json = {a: 1, b: 2} print also takes an array of args</p>
+            
+            <pre>output_of {&#x000A;  JsonGrepper.new(@json).grep(nil).condition(nil).print(['a','b']).summarize(nil)&#x000A;}.equals &quot;a: 1  b: 2&quot;</pre>
+          </div>
+          <div id='context'>
+          </div>
+        </div>
+      </div>
+      <div id='footer-push'></div>
+    </div>
+    <div id='footer'>
+      <a target="docwin" href="http://github.com/mislav/hanna/tree/master"><strong>Hanna</strong> RDoc template</a>
+    </div>
+  </body>
+</html>

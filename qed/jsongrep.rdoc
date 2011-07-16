@@ -1,0 +1,133 @@
+= JSONgrep
+
+JSONgrep is like a combination of grep, sed and awk, but for JSON. It expects one JSON string per line. It filters by string, parses the JSON, filters by condition, outputs arbitrary and even virtual fields and summarizes the values. The base of JSONgrep is the four methods #grep, #condition, #print and #summarize. These methods are made to work together like this:
+
+  JsonGrepper.new('{"a":1, "b":3}').grep('"a":').condition('b > 2').print('b').summarize('b')
+
+Also provided with the library and (for now) it's primary usecase is the command line tool:
+
+  echo '{"a":1, "b":3}' | jsongrep --grep '"a":' --condition 'b > 2' --print 'b' --summarize 'b'
+
+The following examples can be executed by Q.E.D.[https://github.com/rubyworks/qed], just run @qed@ in the root directory. Before each example we reset the internal sum hash of JsonGrepper
+
+  Before :each do
+    JsonGrepper.reset_sums!
+  end
+
+== #grep
+
+#grep filters the whole line before even getting parsed. That's why filtering down the number of lines before parsing speeds up the processing by magnitudes. For really large input files consider using command line grep and piping the output into JSONgrep instead.
+
+When processing {a: 1} and grepping for "a", the whole line is printed.
+
+  output_of {
+    JsonGrepper.new('{"a":1}').grep('"a":').condition(nil).print(nil).summarize(nil)
+  }.equals '{"a":1}'
+
+When processing {a: 1} and grepping for "b", nothing is printed.
+
+  output_of {
+    JsonGrepper.new('{"a":1}').grep('"b"').condition(nil).print(nil).summarize(nil)
+  }.equals ''
+
+== #condition
+
+#condition is the most powerful directive. It's argument is evaluated in the context of the parsed JSON object. The fields of the JSON object are available as local methods. Under the hood the JSON object is an OpenStruct. So you can define new virtual fields by just assigning them. You can use those later in #print and #summarize. #conditions *must* evaluate to true to have the line even further processed. In that way using 'title == "walk this way"' as a condition has somewhat the same effect as using '"title":"walk this way"' as argument for #grep. Only that #grep is *way* faster and #condition is robust against variations in the format of the JSON string.
+
+A condition that matches.
+
+  output_of {
+    JsonGrepper.new('{"a":3}').grep(nil).condition('(0..5).include? a').print(nil).summarize(nil)
+  }.equals '{"a":3}'
+
+A condition that fails.
+
+  output_of {
+    JsonGrepper.new('{"a":3}').grep(nil).condition('(5..9).include? a').print(nil).summarize(nil)
+  }.equals ''
+
+A condition assigning a virtual field.
+
+  output_of {
+    JsonGrepper.new('{"a":3, "b":5}').grep(nil).condition('self.c = a + b ; c > 6').print(nil).summarize(nil)
+  }.equals '{"a":3, "b":5}'
+
+Assigning a virtual field is really powerful combined with print or summarize.
+
+  output_of {
+    JsonGrepper.new('{"a":3, "b":5}').grep(nil).condition('self.c = a + b ; c > 6').print('c').summarize(['a','c'])
+    JsonGrepper.new('{"a":4, "b":4}').grep(nil).condition('self.c = a + b ; c > 6').print('c').summarize(['a','c'])
+    JsonGrepper.new('{"a":3, "b":4}').grep(nil).condition('self.c = a + b ; c > 6').print('c').summarize(['a','c'])
+  }.equals "c: 8
+  c: 8
+  c: 7"
+  
+  output_of {
+    JsonGrepper.summarize
+  }.equals "Summary for a:
+  [#]       [a]
+  2         3
+  1         4
+  3         total
+  
+  Summary for c:
+  [#]       [c]
+  1         7
+  2         8
+  3         total"
+
+== #print
+
+#print is the way to output the filtered lines, one by one. Pass the fields you want to output as arguments.
+
+  output_of {
+    JsonGrepper.new('{"a":1, "b":2, "c":3}').grep(nil).condition(nil).print('a','c').summarize(nil)
+  }.equals 'a: 1  c: 3'
+
+== #summarize
+
+#summarize counts the occurrences of the values of the given fields and outputs these the very end. The output is ordered by the values.
+  
+  @songs = %q{
+    {"artist":"RJD2","title":"Smoke & Mirrors"}
+    {"artist":"Asio Kids","title":"loom"}
+    {"artist":"Asio Kids","title":"The Answer"}
+    {"artist":"Kinderzimmer Productions","title":"Lights! Camera! Action!"}
+    {"artist":"Pharoahe Monch","title":"The Hitman"}
+    {"artist":"Looptroop","title":"feel so good"}
+    {"artist":"Asio Kids","title":"Spacek"}
+    {"artist":"RJD2","title":"Good Times Roll Pt 2"}
+    {"artist":"Dendemann","title":"Das erste Mal"}
+    {"artist":"Pharoahe Monch","title":"Clap"}
+    {"artist":"Looptroop","title":"Focus w/ Freestyle"}
+    {"artist":"Kinderzimmer Productions","title":"Das Gegenteil von gut ist gut gemeint"}
+    {"artist":"RJD2","title":"The Horror"}
+    {"artist":"Asio Kids","title":"loom"}
+    {"artist":"Pharoahe Monch","title":"Assassins"}
+    {"artist":"Kinderzimmer Productions","title":"wo is mein kopf"}
+    {"artist":"Looptroop","title":"dont hate the player"}
+    {"artist":"Dendemann","title":"Endlich Nichtschwimmer"}
+    {"artist":"RJD2","title":"Good Times Roll Pt 2"}
+    {"artist":"Looptroop","title":"feel so good"}
+    {"artist":"Asio Kids","title":"Spacek"}
+    {"artist":"Kinderzimmer Productions","title":"Lights! Camera! Action!"}
+    {"artist":"Dendemann","title":"Saldo Mortale"}
+    {"artist":"Pharoahe Monch","title":"Clap"}
+  }
+  
+  @songs.split("\n").each do |line|
+    JsonGrepper.new(line).grep('').condition('true').print(:none).summarize('artist')
+  end
+  
+  output_of {
+    JsonGrepper.summarize
+  }.equals 'Summary for artist:
+  [#]       [artist]
+  5         Asio Kids
+  3         Dendemann
+  4         Kinderzimmer Productions
+  4         Looptroop
+  4         Pharoahe Monch
+  4         RJD2
+  24        total'
+

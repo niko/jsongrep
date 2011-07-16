@@ -1,0 +1,258 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+
+  <title>File: qedoc [JSONgrep]</title>
+
+  <link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet" />
+  <link type="text/css" media="screen" href="highlight.css" rel="stylesheet" />
+
+  <script src="../js/jquery.js" type="text/javascript"
+    charset="utf-8"></script>
+  <script src="../js/thickbox-compressed.js" type="text/javascript"
+    charset="utf-8"></script>
+  <script src="../js/quicksearch.js" type="text/javascript"
+    charset="utf-8"></script>
+  <script src="../js/darkfish.js" type="text/javascript"
+    charset="utf-8"></script>
+  <script src="../js/highlight.pack.js" type="text/javascript"
+    charset="utf-8"></script>
+  <script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+      $('pre code').each(function(i, e) {hljs.highlightBlock(e, '    ')});
+    });
+  </script>
+  
+</head>
+
+<body class="file">
+  <div id="metadata">
+    <div id="home-metadata">
+      <div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="../index.html">Home</a>
+          <a href="../index.html#classes">Classes</a>
+          <a href="../index.html#methods">Methods</a>
+        </h3>
+      </div>
+    </div>
+
+    <div id="project-metadata">
+      
+      
+      <div id="fileindex-section" class="section project-section">
+        <h3 class="section-header">Files</h3>
+        <ul>
+        
+          <li class="file"><a href="../doc/qedoc.html">qedoc</a></li>
+        
+          <li class="file"><a href="../qed/jsongrep_rdoc.html">jsongrep.rdoc</a></li>
+        
+        </ul>
+      </div>
+      
+
+      <div id="classindex-section" class="section project-section">
+        <h3 class="section-header">Class Index
+          <span class="search-toggle"><img src="../images/find.png"
+            height="16" width="16" alt="[+]"
+            title="show/hide quicksearch" /></span></h3>
+        <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+        <fieldset>
+          <legend>Quicksearch</legend>
+          <input type="text" name="quicksearch" value=""
+            class="quicksearch-field" />
+        </fieldset>
+        </form>
+
+        <ul class="link-list">
+        
+          <li><a href="../AE.html">AE</a></li>
+        
+          <li><a href="../AE/Assert.html">AE::Assert</a></li>
+        
+          <li><a href="../JsonGrepper.html">JsonGrepper</a></li>
+        
+          <li><a href="../Object.html">Object</a></li>
+        
+        </ul>
+        <div id="no-class-search-results" style="display: none;">No matching classes.</div>
+      </div>
+
+      
+    </div>
+  </div>
+
+  <div id="documentation">
+    
+<h1>JSONgrep</h1>
+
+<p>JSONgrep is like a combination of grep, sed and awk, but for JSON. It
+expects one JSON string per line. It filters by string, parses the JSON,
+filters by condition, outputs arbitrary and even virtual fields and
+summarizes the values. The base of JSONgrep is the four methods #grep,
+#condition, #print and #summarize. These methods are made to work together
+like this:</p>
+
+<pre><code>JsonGrepper.new('{&quot;a&quot;:1, &quot;b&quot;:3}').grep('&quot;a&quot;:').condition('b &gt; 2').print('b').summarize('b')</code></pre>
+
+<p>Also provided with the library and (for now) it’s primary usecase is the
+command line tool:</p>
+
+<pre><code>echo '{&quot;a&quot;:1, &quot;b&quot;:3}' | jsongrep --grep '&quot;a&quot;:' --condition 'b &gt; 2' --print 'b' --summarize 'b'</code></pre>
+
+<p>The following examples can be executed by <a
+href="https://github.com/rubyworks/qed">Q.E.D.</a>. Before each example we
+reset the internal sum hash of <a
+href="../JsonGrepper.html">JsonGrepper</a>.</p>
+
+<pre><code>Before :each do
+  JsonGrepper.reset_sums!
+end</code></pre>
+
+<h2>#grep</h2>
+
+<p>#grep filters the whole line before even getting parsed. That’s why
+filtering down the number of lines before parsing speeds up the processing
+by magnitudes. For really large input files consider using command line
+grep and piping the output into JSONgrep instead.</p>
+
+<p>When processing {a: 1} and grepping for “a”, the whole line is printed.</p>
+
+<pre><code>output_of {
+  JsonGrepper.new('{&quot;a&quot;:1}').grep('&quot;a&quot;:').condition(nil).print(nil).summarize(nil)
+}.equals '{&quot;a&quot;:1}'</code></pre>
+
+<p>When processing {a: 1} and grepping for “b”, nothing is printed.</p>
+
+<pre><code>output_of {
+  JsonGrepper.new('{&quot;a&quot;:1}').grep('&quot;b&quot;').condition(nil).print(nil).summarize(nil)
+}.equals ''</code></pre>
+
+<h2>#condition</h2>
+
+<p>#condition is the most powerful directive. It’s argument is evaluated in
+the context of the parsed JSON object. The fields of the JSON object are
+available as local methods. Under the hood the JSON object is an
+OpenStruct. So you can define new virtual fields by just assigning them.
+You can use those later in #print and #summarize. #conditions <b>must</b>
+evaluate to true to have the line even further processed. In that way using
+‘title == “walk this way”’ as a condition has somewhat the same effect as
+using ‘“title”:“walk this way”’ as argument for #grep. Only that #grep is
+<b>way</b> faster and #condition is robust against variations in the format
+of the JSON string.</p>
+
+<p>A condition that matches.</p>
+
+<pre><code>output_of {
+  JsonGrepper.new('{&quot;a&quot;:3}').grep(nil).condition('(0..5).include? a').print(nil).summarize(nil)
+}.equals '{&quot;a&quot;:3}'</code></pre>
+
+<p>A condition that fails.</p>
+
+<pre><code>output_of {
+  JsonGrepper.new('{&quot;a&quot;:3}').grep(nil).condition('(5..9).include? a').print(nil).summarize(nil)
+}.equals ''</code></pre>
+
+<p>A condition assigning a virtual field.</p>
+
+<pre><code>output_of {
+  JsonGrepper.new('{&quot;a&quot;:3, &quot;b&quot;:5}').grep(nil).condition('self.c = a + b ; c &gt; 6').print(nil).summarize(nil)
+}.equals '{&quot;a&quot;:3, &quot;b&quot;:5}'</code></pre>
+
+<p>Assigning a virtual field is really powerful combined with print or
+summarize.</p>
+
+<pre><code>output_of {
+  JsonGrepper.new('{&quot;a&quot;:3, &quot;b&quot;:5}').grep(nil).condition('self.c = a + b ; c &gt; 6').print('c').summarize(['a','c'])
+  JsonGrepper.new('{&quot;a&quot;:4, &quot;b&quot;:4}').grep(nil).condition('self.c = a + b ; c &gt; 6').print('c').summarize(['a','c'])
+  JsonGrepper.new('{&quot;a&quot;:3, &quot;b&quot;:4}').grep(nil).condition('self.c = a + b ; c &gt; 6').print('c').summarize(['a','c'])
+}.equals &quot;c: 8
+c: 8
+c: 7&quot;
+
+output_of {
+  JsonGrepper.summarize
+}.equals &quot;Summary for a:
+[#]       [a]
+2         3
+1         4
+3         total
+
+Summary for c:
+[#]       [c]
+1         7
+2         8
+3         total&quot;</code></pre>
+
+<h2>#print</h2>
+
+<p>#print is the way to output the filtered lines, one by one. Pass the fields
+you want to output as arguments.</p>
+
+<pre><code>output_of {
+  JsonGrepper.new('{&quot;a&quot;:1, &quot;b&quot;:2, &quot;c&quot;:3}').grep(nil).condition(nil).print('a','c').summarize(nil)
+}.equals 'a: 1  c: 3'</code></pre>
+
+<h2>#summarize</h2>
+
+<p>#summarize counts the occurrences of the values of the given fields and
+outputs these the very end. The output is ordered by the values.</p>
+
+<pre><code>@songs = %q{
+  {&quot;artist&quot;:&quot;RJD2&quot;,&quot;title&quot;:&quot;Smoke &amp; Mirrors&quot;}
+  {&quot;artist&quot;:&quot;Asio Kids&quot;,&quot;title&quot;:&quot;loom&quot;}
+  {&quot;artist&quot;:&quot;Asio Kids&quot;,&quot;title&quot;:&quot;The Answer&quot;}
+  {&quot;artist&quot;:&quot;Kinderzimmer Productions&quot;,&quot;title&quot;:&quot;Lights! Camera! Action!&quot;}
+  {&quot;artist&quot;:&quot;Pharoahe Monch&quot;,&quot;title&quot;:&quot;The Hitman&quot;}
+  {&quot;artist&quot;:&quot;Looptroop&quot;,&quot;title&quot;:&quot;feel so good&quot;}
+  {&quot;artist&quot;:&quot;Asio Kids&quot;,&quot;title&quot;:&quot;Spacek&quot;}
+  {&quot;artist&quot;:&quot;RJD2&quot;,&quot;title&quot;:&quot;Good Times Roll Pt 2&quot;}
+  {&quot;artist&quot;:&quot;Dendemann&quot;,&quot;title&quot;:&quot;Das erste Mal&quot;}
+  {&quot;artist&quot;:&quot;Pharoahe Monch&quot;,&quot;title&quot;:&quot;Clap&quot;}
+  {&quot;artist&quot;:&quot;Looptroop&quot;,&quot;title&quot;:&quot;Focus w/ Freestyle&quot;}
+  {&quot;artist&quot;:&quot;Kinderzimmer Productions&quot;,&quot;title&quot;:&quot;Das Gegenteil von gut ist gut gemeint&quot;}
+  {&quot;artist&quot;:&quot;RJD2&quot;,&quot;title&quot;:&quot;The Horror&quot;}
+  {&quot;artist&quot;:&quot;Asio Kids&quot;,&quot;title&quot;:&quot;loom&quot;}
+  {&quot;artist&quot;:&quot;Pharoahe Monch&quot;,&quot;title&quot;:&quot;Assassins&quot;}
+  {&quot;artist&quot;:&quot;Kinderzimmer Productions&quot;,&quot;title&quot;:&quot;wo is mein kopf&quot;}
+  {&quot;artist&quot;:&quot;Looptroop&quot;,&quot;title&quot;:&quot;dont hate the player&quot;}
+  {&quot;artist&quot;:&quot;Dendemann&quot;,&quot;title&quot;:&quot;Endlich Nichtschwimmer&quot;}
+  {&quot;artist&quot;:&quot;RJD2&quot;,&quot;title&quot;:&quot;Good Times Roll Pt 2&quot;}
+  {&quot;artist&quot;:&quot;Looptroop&quot;,&quot;title&quot;:&quot;feel so good&quot;}
+  {&quot;artist&quot;:&quot;Asio Kids&quot;,&quot;title&quot;:&quot;Spacek&quot;}
+  {&quot;artist&quot;:&quot;Kinderzimmer Productions&quot;,&quot;title&quot;:&quot;Lights! Camera! Action!&quot;}
+  {&quot;artist&quot;:&quot;Dendemann&quot;,&quot;title&quot;:&quot;Saldo Mortale&quot;}
+  {&quot;artist&quot;:&quot;Pharoahe Monch&quot;,&quot;title&quot;:&quot;Clap&quot;}
+}
+
+@songs.split(&quot;\n&quot;).each do |line|
+  JsonGrepper.new(line).grep('').condition('true').print(:none).summarize('artist')
+end
+
+output_of {
+  JsonGrepper.summarize
+}.equals 'Summary for artist:
+[#]       [artist]
+5         Asio Kids
+3         Dendemann
+4         Kinderzimmer Productions
+4         Looptroop
+4         Pharoahe Monch
+4         RJD2
+24        total'</code></pre>
+
+  </div>
+
+  <div id="validator-badges">
+    <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+    <p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+      Rdoc Generator</a> 2</small>.</p>
+  </div>
+</body>
+</html>
+

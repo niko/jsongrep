@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+
+  <title>Module: AE::Assert</title>
+
+  <link rel="stylesheet" href="../rdoc.css" type="text/css" media="screen" />
+  <link type="text/css" media="screen" href="highlight.css" rel="stylesheet" />
+
+  <script src="../js/jquery.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../js/thickbox-compressed.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../js/quicksearch.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../js/darkfish.js" type="text/javascript" charset="utf-8"></script>
+  <script src="../js/highlight.pack.js" type="text/javascript" charset="utf-8"></script>
+  <script type="text/javascript" charset="utf-8">
+    $(document).ready(function() {
+      $('pre code').each(function(i, e) {hljs.highlightBlock(e, '    ')});
+    });
+  </script>
+
+</head>
+<body id="top" class="module">
+
+  <div id="metadata">
+    <div id="home-metadata">
+      <div id="home-section" class="section">
+        <h3 class="section-header">
+          <a href="../index.html">Home</a>
+          <a href="../index.html#classes">Classes</a>
+          <a href="../index.html#methods">Methods</a>
+        </h3>
+      </div>
+    </div>
+
+    <div id="file-metadata">
+      <div id="file-list-section" class="section">
+        <h3 class="section-header">In Files</h3>
+        <div class="section-body">
+          <ul>
+          
+            <li><a href="../qed/applique/setup_rb.html?TB_iframe=true&amp;height=550&amp;width=785"
+              class="thickbox" title="qed/applique/setup.rb">qed/applique/setup.rb</a></li>
+          
+          </ul>
+        </div>
+      </div>
+
+      
+    </div>
+
+    <div id="class-metadata">
+      
+
+      
+
+      
+
+      
+      <!-- Method Quickref -->
+      <div id="method-list-section" class="section">
+        <h3 class="section-header">Methods</h3>
+        <ul class="link-list">
+          
+          <li><a href="#method-i-equals">#equals</a></li>
+          
+          <li><a href="#method-i-output_of">#output_of</a></li>
+          
+        </ul>
+      </div>
+      
+
+      
+    </div>
+
+    <div id="project-metadata">
+      
+      
+      <div id="fileindex-section" class="section project-section">
+        <h3 class="section-header">Files</h3>
+        <ul>
+        
+          <li class="file"><a href="../doc/qedoc.html">qedoc</a></li>
+        
+          <li class="file"><a href="../qed/jsongrep_rdoc.html">jsongrep.rdoc</a></li>
+        
+        </ul>
+      </div>
+      
+
+      <div id="classindex-section" class="section project-section">
+        <h3 class="section-header">Class/Module Index
+          <span class="search-toggle"><img src="../images/find.png"
+            height="16" width="16" alt="[+]"
+            title="show/hide quicksearch" /></span></h3>
+        <form action="#" method="get" accept-charset="utf-8" class="initially-hidden">
+        <fieldset>
+          <legend>Quicksearch</legend>
+          <input type="text" name="quicksearch" value=""
+            class="quicksearch-field" />
+        </fieldset>
+        </form>
+
+        <ul class="link-list">
+        
+          <li><a href="../AE.html">AE</a></li>
+        
+          <li><a href="../AE/Assert.html">AE::Assert</a></li>
+        
+          <li><a href="../JsonGrepper.html">JsonGrepper</a></li>
+        
+          <li><a href="../Object.html">Object</a></li>
+        
+        </ul>
+        <div id="no-class-search-results" style="display: none;">No matching classes.</div>
+      </div>
+
+      
+    </div>
+  </div>
+
+  <div id="documentation">
+    <h1 class="module">AE::Assert</h1>
+
+    <div id="description" class="description">
+      
+    </div><!-- description -->
+
+    
+    <div id="5Buntitled-5D" class="documentation-section">
+      
+
+      
+
+      
+
+      
+
+      <!-- Methods -->
+      
+      <div id="public-instance-method-details" class="method-section section">
+        <h3 class="section-header">Public Instance Methods</h3>
+
+      
+        <div id="equals-method" class="method-detail ">
+          <a name="method-i-equals"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">equals</span><span
+              class="method-args">(result)</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="equals-source">
+<pre>
+<span class="ruby-comment"># File qed/applique/setup.rb, line 13</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">equals</span>(<span class="ruby-identifier">result</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">result</span>.<span class="ruby-identifier">is_a?</span> <span class="ruby-constant">String</span>
+    <span class="ruby-comment"># we strip off the double-blanks at the beginning of each line:</span>
+    <span class="ruby-identifier">assert</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">result</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\n&quot;</span>).<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span> <span class="ruby-identifier">l</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">/^  /</span>,<span class="ruby-string">''</span>)}.<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;\n&quot;</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">assert</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">result</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- equals-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- equals-method -->
+
+      
+        <div id="output_of-method" class="method-detail ">
+          <a name="method-i-output_of"></a>
+
+          
+          <div class="method-heading">
+            <span class="method-name">output_of</span><span
+              class="method-args">()</span>
+            <span class="method-click-advice">click to toggle source</span>
+          </div>
+          
+
+          <div class="method-description">
+            
+            
+            
+
+            
+            <div class="method-source-code" id="output_of-source">
+<pre>
+<span class="ruby-comment"># File qed/applique/setup.rb, line 22</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">output_of</span>
+  <span class="ruby-identifier">out</span> = <span class="ruby-constant">StringIO</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-identifier">$stdout</span> = <span class="ruby-identifier">out</span>
+  <span class="ruby-keyword">yield</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">out</span>.<span class="ruby-identifier">string</span>.<span class="ruby-identifier">strip</span>
+<span class="ruby-keyword">ensure</span>
+  <span class="ruby-identifier">$stdout</span> = <span class="ruby-constant">STDOUT</span>
+<span class="ruby-keyword">end</span></pre>
+            </div><!-- output_of-source -->
+            
+          </div>
+
+          
+
+          
+        </div><!-- output_of-method -->
+
+      
+      </div><!-- public-instance-method-details -->
+    
+    </div><!-- 5Buntitled-5D -->
+  
+
+  </div><!-- documentation -->
+
+  <div id="validator-badges">
+    <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+    <p><small>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish
+      Rdoc Generator</a> 2</small>.</p>
+  </div>
+
+</body>
+</html>
+

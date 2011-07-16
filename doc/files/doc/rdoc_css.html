@@ -1,0 +1,853 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html lang='en'>
+  <head>
+    <title>File: rdoc.css [RDoc Documentation]</title>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type'>
+    <link href='../../rdoc-style.css' media='screen' rel='stylesheet' type='text/css'>
+    <script type='text/javascript'>
+      //<![CDATA[
+        function popupCode(url) {
+          window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+        }
+        
+        function toggleCode(id) {
+          var code = document.getElementById(id)
+        
+          code.style.display = code.style.display != 'block' ? 'block' : 'none'
+          return true
+        }
+        
+        // Make codeblocks hidden by default
+        document.writeln('<' + 'style type="text/css">.method .source pre { display: none }<\/style>')
+      //]]>
+    </script>
+  </head>
+  <body class='page'>
+    <div class='file' id='wrapper'>
+      <div class='header'>
+        <h1 class='name'>rdoc.css</h1>
+        <div class='paths'>
+          doc/rdoc.css
+        </div>
+        <div class='last-update'>
+          Last Update:
+          <span class='datetime'>2011-07-13 09:30:39 +0200</span>
+        </div>
+      </div>
+      <div id='content'>
+        <div id='text'>
+          <div id='description'>
+            <p>
+            /*
+            </p>
+            <pre>* &quot;Darkfish&quot; Rdoc CSS&#x000A;* $Id: rdoc.css 54 2009-01-27 01:09:48Z deveiant $&#x000A;*&#x000A;* Author: Michael Granger &lt;ged@FaerieMUD.org&gt;&#x000A;*&#x000A;*/</pre>
+            <p>
+            /* Base Green is: 6C8C22 */
+            </p>
+            <p>
+            *{ padding: 0; margin: 0; }
+            </p>
+            <p>
+            body {
+            </p>
+            <pre>background: #efefef;&#x000A;font: 14px &quot;Helvetica Neue&quot;, Helvetica, Tahoma, sans-serif;</pre>
+            <p>
+            } body.class, body.module, body.file {
+            </p>
+            <pre>margin-left: 40px;</pre>
+            <p>
+            } body.file-popup {
+            </p>
+            <pre>font-size: 90%;&#x000A;margin-left: 0;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            h1 {
+            </p>
+            <pre>font-size: 300%;&#x000A;text-shadow: rgba(135,145,135,0.65) 2px 2px 3px;&#x000A;color: #6C8C22;</pre>
+            <p>
+            } h2,h3,h4 { margin-top: 1.5em; }
+            </p>
+            <p>
+            :link, :visited {
+            </p>
+            <pre>color: #6C8C22;&#x000A;text-decoration: none;</pre>
+            <p>
+            } :link: hover, :visited: hover {
+            </p>
+            <pre>border-bottom: 1px dotted #6C8C22;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            pre {
+            </p>
+            <pre>background: #ddd;&#x000A;padding: 0.5em 0;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            /* @group Generic Classes */
+            </p>
+            <p>
+            .initially-hidden {
+            </p>
+            <pre>display: none;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            .quicksearch-field {
+            </p>
+            <pre>width: 98%;&#x000A;background: #ddd;&#x000A;border: 1px solid #aaa;&#x000A;height: 1.5em;&#x000A;-webkit-border-radius: 4px;</pre>
+            <p>
+            } .quicksearch-field:focus {
+            </p>
+            <pre>background: #f1edba;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            .missing-docs {
+            </p>
+            <pre>font-size: 120%;&#x000A;background: white url(images/wrench_orange.png) no-repeat 4px center;&#x000A;color: #ccc;&#x000A;line-height: 2em;&#x000A;border: 1px solid #d00;&#x000A;opacity: 1;&#x000A;padding-left: 20px;&#x000A;text-indent: 24px;&#x000A;letter-spacing: 3px;&#x000A;font-weight: bold;&#x000A;-webkit-border-radius: 5px;&#x000A;-moz-border-radius: 5px;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            .target-section {
+            </p>
+            <pre>border: 2px solid #dcce90;&#x000A;border-left-width: 8px;&#x000A;padding: 0 1em;&#x000A;background: #fff3c2;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            /* @end */
+            </p>
+            <p>
+            /* @group Index Page, Standalone file pages */ body.indexpage {
+            </p>
+            <pre>margin: 1em 3em;</pre>
+            <p>
+            } body.indexpage p, body.indexpage div, body.file p {
+            </p>
+            <pre>margin: 1em 0;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            .indexpage ol, .file documentation ol {
+            </p>
+            <pre>line-height: 160%;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            .indexpage ul, .file documentation ul {
+            </p>
+            <pre>line-height: 160%;&#x000A;list-style: none;</pre>
+            <p>
+            } .indexpage ul :link, .indexpage ul :visited {
+            </p>
+            <pre>font-size: 16px;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            .indexpage li, .file documentation li {
+            </p>
+            <pre>padding-left: 20px;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            .indexpage ol, .file documentation ol {
+            </p>
+            <pre>margin-left: 20px;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            .indexpage ol > li, .file documentation ol > li {
+            </p>
+            <pre>padding-left: 0;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            .indexpage ul > li, .file documentation ul > li {
+            </p>
+            <pre>background: url(images/bullet_black.png) no-repeat left 4px;</pre>
+            <p>
+            } .indexpage li.module {
+            </p>
+            <pre>background: url(images/package.png) no-repeat left 4px;</pre>
+            <p>
+            } .indexpage li.class {
+            </p>
+            <pre>background: url(images/ruby.png) no-repeat left 4px;</pre>
+            <p>
+            } .indexpage li.file {
+            </p>
+            <pre>background: url(images/page_white_text.png) no-repeat left 4px;</pre>
+            <p>
+            } .file li p, .indexpage li p {
+            </p>
+            <pre>margin: 0 0;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            /* @end */
+            </p>
+            <p>
+            /* @group Top-Level Structure */
+            </p>
+            <p>
+            .class metadata, .file metadata, .module metadata {
+            </p>
+            <pre>float: left;&#x000A;width: 260px;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            .class documentation, .file documentation, .module documentation {
+            </p>
+            <pre>margin: 2em 1em 5em 300px;&#x000A;min-width: 340px;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            .file metadata {
+            </p>
+            <pre>margin: 0.8em;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            validator-badges {
+            </p>
+            <pre>clear: both;&#x000A;margin: 1em 1em 2em;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            /* @end */
+            </p>
+            <p>
+            /* @group Metadata Section */ metadata .section {
+            </p>
+            <pre>background-color: #dedede;&#x000A;-moz-border-radius: 5px;&#x000A;-webkit-border-radius: 5px;&#x000A;border: 1px solid #aaa;&#x000A;margin: 0 8px 16px;&#x000A;font-size: 90%;&#x000A;overflow: hidden;</pre>
+            <p>
+            } metadata h3.section-header {
+            </p>
+            <pre>margin: 0;&#x000A;padding: 2px 8px;&#x000A;background: #ccc;&#x000A;color: #666;&#x000A;-moz-border-radius-topleft: 4px;&#x000A;-moz-border-radius-topright: 4px;&#x000A;-webkit-border-top-left-radius: 4px;&#x000A;-webkit-border-top-right-radius: 4px;&#x000A;border-bottom: 1px solid #aaa;</pre>
+            <p>
+            } metadata home-section h3.section-header {
+            </p>
+            <pre>border-bottom: 0;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            metadata ul, metadata dl, metadata p {
+            </p>
+            <pre>padding:  8px;&#x000A;list-style: none;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            file-metadata ul {
+            </p>
+            <pre>padding-left: 28px;&#x000A;list-style-image: url(images/page_green.png);</pre>
+            <p>
+            }
+            </p>
+            <p>
+            dl.svninfo {
+            </p>
+            <pre>color: #666;&#x000A;margin: 0;</pre>
+            <p>
+            } dl.svninfo dt {
+            </p>
+            <pre>font-weight: bold;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            ul.link-list li {
+            </p>
+            <pre>white-space: nowrap;</pre>
+            <p>
+            } ul.link-list .type {
+            </p>
+            <pre>font-size: 8px;&#x000A;text-transform: uppercase;&#x000A;color: white;&#x000A;background: #969696;&#x000A;padding: 2px 4px;&#x000A;-webkit-border-radius: 5px;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            /* @end */
+            </p>
+            <p>
+            /* @group Project Metadata Section */ project-metadata {
+            </p>
+            <pre>margin-top: 3em;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            .file project-metadata {
+            </p>
+            <pre>margin-top: 0em;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            project-metadata .section {
+            </p>
+            <pre>border: 1px solid #aaa;</pre>
+            <p>
+            } project-metadata h3.section-header {
+            </p>
+            <pre>border-bottom: 1px solid #aaa;&#x000A;position: relative;</pre>
+            <p>
+            } project-metadata h3.section-header .search-toggle {
+            </p>
+            <pre>position: absolute;&#x000A;right: 5px;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            project-metadata form {
+            </p>
+            <pre>color: #777;&#x000A;background: #ccc;&#x000A;padding: 8px 8px 16px;&#x000A;border-bottom: 1px solid #bbb;</pre>
+            <p>
+            } project-metadata fieldset {
+            </p>
+            <pre>border: 0;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            no-class-search-results {
+            </p>
+            <pre>margin: 0 auto 1em;&#x000A;text-align: center;&#x000A;font-size: 14px;&#x000A;font-weight: bold;&#x000A;color: #aaa;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            /* @end */
+            </p>
+            <p>
+            /* @group Documentation Section */ .description {
+            </p>
+            <pre>font-size: 100%;&#x000A;color: #333;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            .description p {
+            </p>
+            <pre>margin: 1em 0.4em;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            .description li p {
+            </p>
+            <pre>margin: 0;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            .description ul {
+            </p>
+            <pre>margin-left: 1.5em;</pre>
+            <p>
+            } .description ul li {
+            </p>
+            <pre>line-height: 1.4em;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            .description dl, documentation dl {
+            </p>
+            <pre>margin: 8px 1.5em;&#x000A;border: 1px solid #ccc;</pre>
+            <p>
+            } .description dl {
+            </p>
+            <pre>font-size: 14px;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            .description dt, documentation dt {
+            </p>
+            <pre>padding: 2px 4px;&#x000A;font-weight: bold;&#x000A;background: #ddd;</pre>
+            <p>
+            } .description dd, documentation dd {
+            </p>
+            <pre>padding: 2px 12px;</pre>
+            <p>
+            } .description dd + dt, documentation dd + dt {
+            </p>
+            <pre>margin-top: 0.7em;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            documentation .section {
+            </p>
+            <pre>font-size: 90%;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            documentation h2.section-header {
+            </p>
+            <pre>margin-top: 2em;&#x000A;padding: 0.75em 0.5em;&#x000A;background: #ccc;&#x000A;color: #333;&#x000A;font-size: 175%;&#x000A;border: 1px solid #bbb;&#x000A;-moz-border-radius: 3px;&#x000A;-webkit-border-radius: 3px;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            documentation h3.section-header {
+            </p>
+            <pre>margin-top: 2em;&#x000A;padding: 0.25em 0.5em;&#x000A;background-color: #dedede;&#x000A;color: #333;&#x000A;font-size: 150%;&#x000A;border: 1px solid #bbb;&#x000A;-moz-border-radius: 3px;&#x000A;-webkit-border-radius: 3px;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            constants-list > dl, attributes-list > dl {
+            </p>
+            <pre>margin: 1em 0 2em;&#x000A;border: 0;</pre>
+            <p>
+            } constants-list > dl dt, attributes-list > dl dt {
+            </p>
+            <pre>padding-left: 0;&#x000A;font-weight: bold;&#x000A;font-family: Monaco, &quot;Andale Mono&quot;;&#x000A;background: inherit;</pre>
+            <p>
+            } constants-list > dl dt a, attributes-list > dl dt a {
+            </p>
+            <pre>color: inherit;</pre>
+            <p>
+            } constants-list > dl dd, attributes-list > dl dd {
+            </p>
+            <pre>margin: 0 0 1em 0;&#x000A;padding: 0;&#x000A;color: #666;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            .documentation-section h2 {
+            </p>
+            <pre>position: relative;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            .documentation-section h2 a {
+            </p>
+            <pre>position: absolute;&#x000A;top: 8px;&#x000A;right: 10px;&#x000A;font-size: 12px;&#x000A;color: #9b9877;&#x000A;visibility: hidden;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            .documentation-section h2:hover a {
+            </p>
+            <pre>visibility: visible;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            /* @group Method Details */
+            </p>
+            <p>
+            documentation .method-source-code {
+            </p>
+            <pre>display: none;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            documentation .method-detail {
+            </p>
+            <pre>margin: 0.5em 0;&#x000A;padding: 0.5em 0;&#x000A;cursor: pointer;</pre>
+            <p>
+            } documentation .method-detail:hover {
+            </p>
+            <pre>background-color: #f1edba;</pre>
+            <p>
+            } documentation .method-heading {
+            </p>
+            <pre>position: relative;&#x000A;padding: 2px 4px 0 20px;&#x000A;font-size: 125%;&#x000A;font-weight: bold;&#x000A;color: #333;&#x000A;background: url(images/brick.png) no-repeat left bottom;</pre>
+            <p>
+            } documentation .method-heading :link, documentation .method-heading
+            :visited {
+            </p>
+            <pre>color: inherit;</pre>
+            <p>
+            } documentation .method-click-advice {
+            </p>
+            <pre>position: absolute;&#x000A;top: 2px;&#x000A;right: 5px;&#x000A;font-size: 10px;&#x000A;color: #9b9877;&#x000A;visibility: hidden;&#x000A;padding-right: 20px;&#x000A;line-height: 20px;&#x000A;background: url(images/zoom.png) no-repeat right top;</pre>
+            <p>
+            } documentation .method-detail:hover .method-click-advice {
+            </p>
+            <pre>visibility: visible;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            documentation .method-alias .method-heading {
+            </p>
+            <pre>color: #666;&#x000A;background: url(images/brick_link.png) no-repeat left bottom;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            documentation .method-description, documentation .aliases {
+            </p>
+            <pre>margin: 0 20px;&#x000A;color: #666;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            documentation .method-description p, documentation .aliases p {
+            </p>
+            <pre>line-height: 1.2em;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            documentation .aliases {
+            </p>
+            <pre>padding-top: 4px;&#x000A;font-style: italic;&#x000A;cursor: default;</pre>
+            <p>
+            } documentation .method-description p {
+            </p>
+            <pre>padding: 0;</pre>
+            <p>
+            } documentation .method-description p + p {
+            </p>
+            <pre>margin-bottom: 0.5em;</pre>
+            <p>
+            } documentation .method-description ul {
+            </p>
+            <pre>margin-left: 1.5em;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            documentation .attribute-method-heading {
+            </p>
+            <pre>background: url(images/tag_green.png) no-repeat left bottom;</pre>
+            <p>
+            } documentation attribute-method-details .method-detail:hover {
+            </p>
+            <pre>background-color: transparent;&#x000A;cursor: default;</pre>
+            <p>
+            } documentation .attribute-access-type {
+            </p>
+            <pre>font-size: 60%;&#x000A;text-transform: uppercase;&#x000A;vertical-align: super;&#x000A;padding: 0 2px;</pre>
+            <p>
+            } /* @end */
+            </p>
+            <p>
+            /* @end */
+            </p>
+            <p>
+            /* @group Source Code */
+            </p>
+            <p>
+            div.method-source-code {
+            </p>
+            <pre>background: #262626;&#x000A;color: #efefef;&#x000A;margin: 1em;&#x000A;padding: 0.5em;&#x000A;border: 1px dashed #999;&#x000A;overflow: hidden;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            div.method-source-code pre {
+            </p>
+            <pre>background: inherit;&#x000A;padding: 0;&#x000A;color: white;&#x000A;overflow: auto;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            /* @group Ruby keyword styles */
+            </p>
+            <p>
+            .ruby-constant { color: 7fffd4; background: transparent; } .ruby-keyword {
+            color: 00ffff; background: transparent; } .ruby-ivar { color: eedd82;
+            background: transparent; } .ruby-operator { color: 00ffee; background:
+            transparent; } .ruby-identifier { color: ffdead; background: transparent; }
+            .ruby-node { color: ffa07a; background: transparent; } .ruby-comment {
+            color: b22222; font-weight: bold; background: transparent; } .ruby-regexp {
+            color: ffa07a; background: transparent; } .ruby-value { color: 7fffd4;
+            background: transparent; }
+            </p>
+            <p>
+            /* @end */ /* @end */
+            </p>
+            <p>
+            /* @group File Popup Contents */
+            </p>
+            <p>
+            .file metadata, .file-popup metadata { }
+            </p>
+            <p>
+            .file-popup dl {
+            </p>
+            <pre>font-size: 80%;&#x000A;padding: 0.75em;&#x000A;background-color: #dedede;&#x000A;color: #333;&#x000A;border: 1px solid #bbb;&#x000A;-moz-border-radius: 3px;&#x000A;-webkit-border-radius: 3px;</pre>
+            <p>
+            } .file dt {
+            </p>
+            <pre>font-weight: bold;&#x000A;padding-left: 22px;&#x000A;line-height: 20px;&#x000A;background: url(images/page_white_width.png) no-repeat left top;</pre>
+            <p>
+            } .file dt.modified-date {
+            </p>
+            <pre>background: url(images/date.png) no-repeat left top;</pre>
+            <p>
+            } .file dt.requires {
+            </p>
+            <pre>background: url(images/plugin.png) no-repeat left top;</pre>
+            <p>
+            } .file dt.scs-url {
+            </p>
+            <pre>background: url(images/wrench.png) no-repeat left top;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            .file dl dd {
+            </p>
+            <pre>margin: 0 0 1em 0;</pre>
+            <p>
+            } .file metadata dl dd ul {
+            </p>
+            <pre>list-style: circle;&#x000A;margin-left: 20px;&#x000A;padding-top: 0;</pre>
+            <p>
+            } .file metadata dl dd ul li { }
+            </p>
+            <p>
+            .file h2 {
+            </p>
+            <pre>margin-top: 2em;&#x000A;padding: 0.75em 0.5em;&#x000A;background-color: #dedede;&#x000A;color: #333;&#x000A;font-size: 120%;&#x000A;border: 1px solid #bbb;&#x000A;-moz-border-radius: 3px;&#x000A;-webkit-border-radius: 3px;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            /* @end */
+            </p>
+            <p>
+            /* @group ThickBox Styles */ TB_window {
+            </p>
+            <pre>font: 12px Arial, Helvetica, sans-serif;&#x000A;color: #333333;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            TB_secondLine {
+            </p>
+            <pre>font: 10px Arial, Helvetica, sans-serif;&#x000A;color:#666666;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            TB_window :link, TB_window :visited { color: 666666; } TB_window :<a
+            href="../../hover">hover</a>, TB_window :visited:hover { color: 000; }
+            TB_window :<a href="../../active">active</a>, TB_window :visited:active {
+            color: 666666; } TB_window :<a href="../../focus">focus</a>, TB_window
+            :visited:focus { color: 666666; }
+            </p>
+            <p>
+            TB_overlay {
+            </p>
+            <pre>position: fixed;&#x000A;z-index:100;&#x000A;top: 0px;&#x000A;left: 0px;&#x000A;height:100%;&#x000A;width:100%;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            .TB_overlayMacFFBGHack {background: url(images/macFFBgHack.png) repeat;}
+            .TB_overlayBG {
+            </p>
+            <pre>background-color:#000;&#x000A;filter:alpha(opacity=75);&#x000A;-moz-opacity: 0.75;&#x000A;opacity: 0.75;</pre>
+            <p>
+            }
+            </p>
+            <ul>
+            <li>html TB_overlay { /* ie6 hack */ position: absolute; height:
+            expression(document.body.scrollHeight > document.body.offsetHeight ?
+            document.body.scrollHeight : document.body.offsetHeight +
+            &#8216;px&#8217;);
+            
+            </li>
+            </ul>
+            <p>
+            }
+            </p>
+            <p>
+            TB_window {
+            </p>
+            <pre>position: fixed;&#x000A;background: #ffffff;&#x000A;z-index: 102;&#x000A;color:#000000;&#x000A;display:none;&#x000A;border: 4px solid #525252;&#x000A;text-align:left;&#x000A;top:50%;&#x000A;left:50%;</pre>
+            <p>
+            }
+            </p>
+            <ul>
+            <li>html TB_window { /* ie6 hack */ position: absolute; margin-top:
+            expression(0 - parseInt(this.offsetHeight / 2) + (TBWindowMargin =
+            document.documentElement &amp;&amp; document.documentElement.scrollTop ||
+            document.body.scrollTop) + &#8216;px&#8217;);
+            
+            </li>
+            </ul>
+            <p>
+            }
+            </p>
+            <p>
+            TB_window imgTB_Image {
+            </p>
+            <pre>display:block;&#x000A;margin: 15px 0 0 15px;&#x000A;border-right: 1px solid #ccc;&#x000A;border-bottom: 1px solid #ccc;&#x000A;border-top: 1px solid #666;&#x000A;border-left: 1px solid #666;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            TB_caption{
+            </p>
+            <pre>height:25px;&#x000A;padding:7px 30px 10px 25px;&#x000A;float:left;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            TB_closeWindow{
+            </p>
+            <pre>height:25px;&#x000A;padding:11px 25px 10px 0;&#x000A;float:right;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            TB_closeAjaxWindow{
+            </p>
+            <pre>padding:7px 10px 5px 0;&#x000A;margin-bottom:1px;&#x000A;text-align:right;&#x000A;float:right;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            TB_ajaxWindowTitle{
+            </p>
+            <pre>float:left;&#x000A;padding:7px 0 5px 10px;&#x000A;margin-bottom:1px;&#x000A;font-size: 22px;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            TB_title{
+            </p>
+            <pre>background-color: #6C8C22;&#x000A;color: #dedede;&#x000A;height:40px;</pre>
+            <p>
+            } TB_title :link, TB_title :visited {
+            </p>
+            <pre>color: white !important;&#x000A;border-bottom: 1px dotted #dedede;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            TB_ajaxContent{
+            </p>
+            <pre>clear:both;&#x000A;padding:2px 15px 15px 15px;&#x000A;overflow:auto;&#x000A;text-align:left;&#x000A;line-height:1.4em;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            TB_ajaxContent.TB_modal{
+            </p>
+            <pre>padding:15px;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            TB_ajaxContent p{
+            </p>
+            <pre>padding:5px 0px 5px 0px;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            TB_load{
+            </p>
+            <pre>position: fixed;&#x000A;display:none;&#x000A;height:13px;&#x000A;width:208px;&#x000A;z-index:103;&#x000A;top: 50%;&#x000A;left: 50%;&#x000A;margin: -6px 0 0 -104px; /* -height/2 0 0 -width/2 */</pre>
+            <p>
+            }
+            </p>
+            <ul>
+            <li>html TB_load { /* ie6 hack */ position: absolute; margin-top: expression(0
+            - parseInt(this.offsetHeight / 2) + (TBWindowMargin =
+            document.documentElement &amp;&amp; document.documentElement.scrollTop ||
+            document.body.scrollTop) + &#8216;px&#8217;);
+            
+            </li>
+            </ul>
+            <p>
+            }
+            </p>
+            <p>
+            TB_HideSelect{
+            </p>
+            <pre>z-index:99;&#x000A;position:fixed;&#x000A;top: 0;&#x000A;left: 0;&#x000A;background-color:#fff;&#x000A;border:none;&#x000A;filter:alpha(opacity=0);&#x000A;-moz-opacity: 0;&#x000A;opacity: 0;&#x000A;height:100%;&#x000A;width:100%;</pre>
+            <p>
+            }
+            </p>
+            <ul>
+            <li>html TB_HideSelect { /* ie6 hack */ position: absolute; height:
+            expression(document.body.scrollHeight > document.body.offsetHeight ?
+            document.body.scrollHeight : document.body.offsetHeight +
+            &#8216;px&#8217;);
+            
+            </li>
+            </ul>
+            <p>
+            }
+            </p>
+            <p>
+            TB_iframeContent{
+            </p>
+            <pre>clear:both;&#x000A;border:none;&#x000A;margin-bottom:-1px;&#x000A;margin-top:1px;&#x000A;_margin-bottom:1px;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            /* @end */
+            </p>
+            <p>
+            /* @group Debugging Section */
+            </p>
+            <p>
+            debugging-toggle {
+            </p>
+            <pre>text-align: center;</pre>
+            <p>
+            } debugging-toggle img {
+            </p>
+            <pre>cursor: pointer;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            rdoc-debugging-section-dump {
+            </p>
+            <pre>display: none;&#x000A;margin: 0 2em 2em;&#x000A;background: #ccc;&#x000A;border: 1px solid #999;</pre>
+            <p>
+            }
+            </p>
+            <p>
+            /* @end */
+            </p>
+          </div>
+          <div id='section'>
+          </div>
+        </div>
+      </div>
+      <div id='footer-push'></div>
+    </div>
+    <div id='footer'>
+      <a href="http://github.com/mislav/hanna/tree/master"><strong>Hanna</strong> RDoc template</a>
+    </div>
+  </body>
+</html>

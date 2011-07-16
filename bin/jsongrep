@@ -1,0 +1,32 @@
+#!/usr/bin/env ruby
+
+require_relative '../lib/jsongrepper'
+
+opts = Slop.new :multiple_switches => false do
+  banner              'Usage: jsongrep [OPTION]... [FILE]'
+  on :g, :grep,       'A String the complete JSON line has to match to even be parsed.', true
+  on :c, :condition,  'String to be evaluated after parsing. The context is the one of the parsed object. Fields are available as local methods. You can set fields with self.fieldname = ...', true
+  on :f, :fields,     'The fields to be printed. :none and :all work, too. Defaults to :all.', true, :as => Array
+  on :s, :summarize,  'Summarize', true, :as => Array
+  
+  on :h, :help,       'Print this help message' do puts help ; exit end
+end
+
+input = nil
+opts.parse { |arg| input = arg }
+O = opts.to_hash.merge :input => input
+O[:fields] ||= :all
+O[:fields] = :all if O[:fields] == [':all']
+O[:fields] = :none if O[:fields] == [':none']
+
+def parse(input)
+  trap(:INT){ JsonGrepper.summarize; exit }
+  while line = input.readline
+    JsonGrepper.new(line).grep(O[:grep]).condition(O[:condition]).print(O[:fields]).summarize(O[:summarize])
+  end
+rescue EOFError
+  JsonGrepper.summarize
+  exit
+end
+
+O[:input] && File.open(O[:input], 'r'){ |f| parse f } || parse(STDIN)
