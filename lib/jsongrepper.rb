@@ -19,9 +19,14 @@ class JsonGrepper
     @data = false
   end
   
+  def random_sampling(random_sampling)
+    return self if !random_sampling
+    @json = rand(random_sampling) == 0 && @json
+    self
+  end
+  
   def grep(grep)
     return self if !grep
-    # p [:grep, grep, @json, @json.include?(grep)]
     @json = @json.include?(grep) && @json
     self
   end
@@ -66,13 +71,14 @@ class JsonGrepper
     def reset_sums!
       @sums = {}
     end
-    def summarize
+    def summarize(random_sampling=1)
       sums.each do |field, occurences|
         total = 0
         puts "\nSummary for #{field}:"
         puts "[#]       [#{field}]"
         occurences = occurences.sort_by{|k,v| k} rescue occurences
         occurences.each do |value,number|
+          number *= random_sampling
           puts "#{number}#{' '*(10-number.to_s.size)}#{value}"
           total += number
         end

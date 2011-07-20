@@ -9,6 +9,8 @@ opts = Slop.new :multiple_switches => false do
   on :f, :fields,     'The fields to be printed. :none and :all work, too. Defaults to :all.', true, :as => Array
   on :s, :summarize,  'Summarize', true, :as => Array
   
+  on :r, :random_sampling, 'Random Sampling', true, :as => Integer
+  
   on :h, :help,       'Print this help message' do puts help ; exit end
 end
 
@@ -22,10 +24,15 @@ O[:fields] = :none if O[:fields] == [':none']
 def parse(input)
   trap(:INT){ JsonGrepper.summarize; exit }
   while line = input.readline
-    JsonGrepper.new(line).grep(O[:grep]).condition(O[:condition]).print(O[:fields]).summarize(O[:summarize])
+    JsonGrepper.new(line).
+      random_sampling(O[:random_sampling]).
+      grep(O[:grep]).
+      condition(O[:condition]).
+      print(O[:fields]).
+      summarize(O[:summarize])
   end
 rescue EOFError
-  JsonGrepper.summarize
+  JsonGrepper.summarize(O[:random_sampling])
   exit
 end
 

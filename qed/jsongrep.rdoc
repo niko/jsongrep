@@ -1,6 +1,6 @@
 = JSONgrep
 
-JSONgrep is like a combination of grep, sed and awk, but for JSON. It expects one JSON string per line. It filters by string, parses the JSON, filters by condition, outputs arbitrary and even virtual fields and summarizes the values. The base of JSONgrep is the four methods #grep, #condition, #print and #summarize. These methods are made to work together like this:
+JSONgrep is like a combination of grep, sed and awk, but for JSON. It expects one JSON string per line. It filters by string, parses the JSON, filters by condition, outputs arbitrary and even virtual fields and summarizes the values. The base of JSONgrep is the methods #random_sampling, #grep, #condition, #print and #summarize. These methods are made to work together like this:
 
   JsonGrepper.new('{"a":1, "b":3}').grep('"a":').condition('b > 2').print('b').summarize('b')
 
@@ -131,3 +131,18 @@ Assigning a virtual field is really powerful combined with print or summarize.
   4         RJD2
   24        total'
 
+== random_sampling
+
+Is meant to speed up the processing of large data sets.
+  
+  output_of {
+    JsonGrepper.new('{"a":3, "b":5}').random_sampling(1).grep(nil).condition('self.c = a + b ; c > 6').print('c').summarize(['a','c'])
+  }.equals 'c: 8'
+  
+  # if this one fails, you are really lucky:
+  output_of {
+    JsonGrepper.new('{"a":3, "b":5}').random_sampling(1_000_000_000).grep(nil).condition('self.c = a + b ; c > 6').print('c').summarize(['a','c'])
+  }.equals ''
+  
+
+JsonGrepper.summarize then also takes a random sampling argument and multiplies the respective occurrences with the sample rate.
