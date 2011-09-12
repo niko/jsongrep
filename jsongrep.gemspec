@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name         = 'jsongrep'
-  s.version      = '0.0.2'
+  s.version      = '0.0.3'
   s.authors      = ['Niko Dittmann']
   s.email        = 'mail@niko-dittmann.com'
   s.homepage     = 'http://github.com/niko/jsongrep'
@@ -16,6 +16,9 @@ Gem::Specification.new do |s|
   s.require_path = 'lib'
   s.executables  = ['jsongrep']
   s.bindir       = 'bin'
+  
+  s.add_dependency 'yajl-ruby'
+  s.add_dependency 'slop'
   
   s.rubyforge_project = 'nowarning'
   s.add_development_dependency 'qed'
