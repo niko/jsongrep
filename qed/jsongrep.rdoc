@@ -145,4 +145,10 @@ Is meant to speed up the processing of large data sets.
   }.equals ''
   
 
+Random sampling also works with an explicit nil.
+
+  g = JsonGrepper.new('{"a":3, "b":5}').random_sampling(nil).grep(nil).condition('self.c = a + b ; c > 6').print('c').summarize(['a','c'])
+  output_of { JsonGrepper.summarize(nil) }
+
+
 JsonGrepper.summarize then also takes a random sampling argument and multiplies the respective occurrences with the sample rate.

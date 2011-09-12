@@ -71,7 +71,9 @@ class JsonGrepper
     def reset_sums!
       @sums = {}
     end
-    def summarize(random_sampling=1)
+    def summarize(random_sampling=nil)
+      random_sampling ||= 1
+      
       sums.each do |field, occurences|
         total = 0
         puts "\nSummary for #{field}:"
